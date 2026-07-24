@@ -1,0 +1,81 @@
+{
+  "compilerOptions": {
+    /* Language & Runtime */
+    "target": "ES2022",
+    "module": "CommonJS",
+    "moduleResolution": "Node",
+
+    /* Type Checking */
+    "strict": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
+    "strictBindCallApply": true,
+    "strictPropertyInitialization": true,
+    "noImplicitThis": true,
+    "alwaysStrict": true,
+
+    /* Additional Checks */
+    "noUnusedLocals": true,
+    "noUnusedParameters": false,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitReturns": true,
+
+    /* Interoperability */
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "resolveJsonModule": true,
+
+    /* Project Structure */
+    "rootDir": ".",
+    "baseUrl": ".",
+
+    /* Path Aliases */
+    "paths": {
+      "@config/*": ["src/config/*"],
+      "@core/*": ["src/core/*"],
+      "@pages/*": ["src/pages/*"],
+      "@utils/*": ["src/utils/*"],
+      "@helpers/*": ["src/helpers/*"],
+      "@fixtures/*": ["src/fixtures/*"],
+      "@data/*": ["src/data/*"],
+      "@constants/*": ["src/constants/*"],
+      "@types/*": ["src/types/*"],
+      "@api/*": ["src/api/*"],
+      "@components/*": ["src/components/*"],
+      "@logger/*": ["src/logger/*"]
+    },
+
+    /* Type Definitions */
+    "types": [
+      "node",
+      "@playwright/test"
+    ],
+
+    /* Source Maps */
+    "sourceMap": true,
+
+    /* Output */
+    "removeComments": false,
+
+    /* Performance */
+    "skipLibCheck": true,
+
+    /* Consistency */
+    "forceConsistentCasingInFileNames": true
+  },
+
+  "include": [
+    "src/**/*.ts",
+    "tests/**/*.ts",
+    "playwright.config.ts"
+  ],
+
+  "exclude": [
+    "node_modules",
+    "playwright-report",
+    "test-results",
+    "allure-report",
+    "allure-results"
+  ]
+}

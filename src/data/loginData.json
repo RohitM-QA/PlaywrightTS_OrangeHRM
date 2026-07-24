@@ -1,0 +1,42 @@
+{
+  "validUsers": [
+    {
+      "role": "Admin",
+      "username": "Admin",
+      "password": "admin123"
+    }
+  ],
+
+  "invalidUsers": [
+    {
+      "username": "Admin123",
+      "password": "admin123",
+      "message": "Invalid credentials"
+    },
+    {
+      "username": "Admin",
+      "password": "WrongPassword",
+      "message": "Invalid credentials"
+    },
+    {
+      "username": "WrongUser",
+      "password": "WrongPassword",
+      "message": "Invalid credentials"
+    }
+  ],
+
+  "validation": {
+    "emptyUsername": {
+      "username": "",
+      "password": "admin123"
+    },
+    "emptyPassword": {
+      "username": "Admin",
+      "password": ""
+    },
+    "emptyCredentials": {
+      "username": "",
+      "password": ""
+    }
+  }
+}

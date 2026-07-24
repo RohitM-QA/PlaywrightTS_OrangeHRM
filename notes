@@ -1,0 +1,74 @@
+orangehrm-playwright-framework
+
+src
+│
+├── config
+│      env.ts
+│
+├── core
+│      BasePage.ts
+│      BaseTest.ts
+│
+├── pages
+│      LoginPage.ts
+│      DashboardPage.ts
+│      AdminPage.ts
+│      PIMPage.ts
+│      LeavePage.ts
+│      TimePage.ts
+│      RecruitmentPage.ts
+│      MyInfoPage.ts
+│      PerformancePage.ts
+│      DirectoryPage.ts
+│      MaintenancePage.ts
+│      BuzzPage.ts
+│
+├── locators
+│
+├── components
+│
+├── utils
+│      WaitUtil.ts
+│      DateUtil.ts
+│      RandomUtil.ts
+│      ScreenshotUtil.ts
+│
+├── helpers
+│
+├── fixtures
+│
+├── api
+│
+├── data
+│      loginData.json
+│      employeeData.json
+│
+├── constants
+│
+├── types
+│
+├── logger
+│
+└── reports
+
+tests
+
+│
+├── smoke
+├── regression
+├── sanity
+├── e2e
+├── api
+└── visual
+
+playwright-report
+
+test-results
+
+allure-results
+
+screenshots
+
+videos
+
+traces

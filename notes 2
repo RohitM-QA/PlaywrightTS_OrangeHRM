@@ -1,0 +1,560 @@
+For learning **Playwright + TypeScript** like a real-world QA Automation Engineer, I recommend building the framework in phases rather than writing everything at once. This is how automation teams usually build enterprise frameworks.
+
+The OrangeHRM demo site is available at [OrangeHRM Demo](https://opensource-demo.orangehrmlive.com/web/index.php/auth/login?utm_source=chatgpt.com). The current demo credentials are **Admin / admin123**. ([opensource-demo.orangehrmlive.com][1])
+
+# Phase 0 - Prerequisites
+
+Before writing a single test:
+
+* Install VS Code
+* Install Node.js (LTS)
+* Install Git
+* Install Playwright
+* Install TypeScript
+* Install ESLint
+* Install Prettier
+* Install Playwright Extension for VS Code
+
+---
+
+# Phase 1 - Create Project
+
+```
+orangehrm-playwright-framework/
+```
+
+Initialize
+
+```
+npm init -y
+```
+
+Install Playwright
+
+```
+npm init playwright@latest
+```
+
+Choose
+
+```
+TypeScript ✔
+tests folder ✔
+GitHub Actions ✔
+Playwright Browsers ✔
+```
+
+---
+
+# Phase 2 - Configure Project
+
+Create
+
+```
+package.json
+tsconfig.json
+playwright.config.ts
+.env
+.gitignore
+README.md
+```
+
+---
+
+# Phase 3 - Folder Structure
+
+```
+orangehrm-playwright-framework
+
+src
+│
+├── config
+│      env.ts
+│
+├── core
+│      BasePage.ts
+│      BaseTest.ts
+│
+├── pages
+│      LoginPage.ts
+│      DashboardPage.ts
+│      AdminPage.ts
+│      PIMPage.ts
+│      LeavePage.ts
+│      TimePage.ts
+│      RecruitmentPage.ts
+│      MyInfoPage.ts
+│      PerformancePage.ts
+│      DirectoryPage.ts
+│      MaintenancePage.ts
+│      BuzzPage.ts
+│
+├── locators
+│
+├── components
+│
+├── utils
+│      WaitUtil.ts
+│      DateUtil.ts
+│      RandomUtil.ts
+│      ScreenshotUtil.ts
+│
+├── helpers
+│
+├── fixtures
+│
+├── api
+│
+├── data
+│      loginData.json
+│      employeeData.json
+│
+├── constants
+│
+├── types
+│
+├── logger
+│
+└── reports
+
+tests
+
+│
+├── smoke
+├── regression
+├── sanity
+├── e2e
+├── api
+└── visual
+
+playwright-report
+
+test-results
+
+allure-results
+
+screenshots
+
+videos
+
+traces
+```
+
+---
+
+# Phase 4 - Framework Core
+
+Build
+
+* BasePage
+* BaseTest
+* Browser Factory
+* Environment Reader
+* Config Reader
+* Common Assertions
+* Wait Utilities
+* Logger
+* Custom Reporter
+
+---
+
+# Phase 5 - Page Object Model
+
+Create page classes for every module.
+
+```
+Login Page
+
+Dashboard
+
+Admin
+
+PIM
+
+Leave
+
+Time
+
+Recruitment
+
+My Info
+
+Performance
+
+Directory
+
+Maintenance
+
+Buzz
+```
+
+---
+
+# Phase 6 - Test Data Management
+
+```
+JSON
+
+CSV
+
+Excel
+
+Environment Variables
+
+Fake Data Generator
+
+Random Data
+```
+
+---
+
+# Phase 7 - Fixtures
+
+Create reusable fixtures
+
+```
+Browser
+
+Page
+
+Login
+
+Admin Login
+
+Employee Login
+
+API Context
+```
+
+---
+
+# Phase 8 - Utilities
+
+```
+Date Utility
+
+Random Utility
+
+Excel Utility
+
+API Utility
+
+Screenshot Utility
+
+Download Utility
+
+Upload Utility
+
+Retry Utility
+```
+
+---
+
+# Phase 9 - Reporting
+
+Implement
+
+```
+HTML Report
+
+Allure Report
+
+JSON Report
+
+JUnit Report
+
+Custom Report
+```
+
+---
+
+# Phase 10 - Logging
+
+```
+Info
+
+Warning
+
+Error
+
+Debug
+
+Execution Time
+```
+
+---
+
+# Phase 11 - CI/CD
+
+```
+GitHub Actions
+
+Jenkins
+
+Azure DevOps
+
+GitLab CI
+
+Docker
+```
+
+---
+
+# Phase 12 - Parallel Execution
+
+Run
+
+```
+Chrome
+
+Firefox
+
+Edge
+
+WebKit
+
+Mobile Chrome
+
+Mobile Safari
+```
+
+---
+
+# Phase 13 - API Testing
+
+Test
+
+```
+GET
+
+POST
+
+PUT
+
+PATCH
+
+DELETE
+
+Authentication
+
+Response Validation
+```
+
+---
+
+# Phase 14 - Visual Testing
+
+```
+Screenshot Comparison
+
+Pixel Comparison
+
+UI Validation
+```
+
+---
+
+# Phase 15 - Performance
+
+```
+Execution Time
+
+Slow Tests
+
+Retries
+
+Trace Viewer
+
+Videos
+```
+
+---
+
+# Phase 16 - Framework Completion
+
+At this point the framework should support:
+
+* Cross Browser
+* Parallel Execution
+* Data Driven Testing
+* API Testing
+* UI Testing
+* Environment Switching
+* Logging
+* Reporting
+* CI/CD
+* Docker
+* Reusable Components
+* Maintainable POM
+* Enterprise Folder Structure
+
+---
+
+# Login Module Test Cases
+
+## Positive
+
+* Valid username/password
+* Username case sensitivity
+* Password case sensitivity
+* Login using Enter key
+* Login using Login button
+* Successful logout
+* Session timeout
+* Remember previous URL after login (if applicable)
+* Browser refresh after login
+* Open multiple tabs
+
+---
+
+## Negative
+
+* Invalid username
+* Invalid password
+* Invalid username and password
+* Empty username
+* Empty password
+* Both empty
+* Spaces only
+* Leading spaces
+* Trailing spaces
+* SQL Injection attempt
+* XSS attempt
+* Special characters
+* Very long username
+* Very long password
+* Unicode characters
+* Emoji characters
+* Copy/Paste password
+* Multiple rapid login attempts
+
+---
+
+## UI Validation
+
+* Logo visible
+* Login button visible
+* Username textbox
+* Password textbox
+* Forgot Password link
+* Placeholder text
+* Password masked
+* Responsive UI
+* Browser compatibility
+
+---
+
+## Functional
+
+* Password masking
+* Show validation messages
+* Error disappears after correction
+* Tab order
+* Keyboard navigation
+* Enter key
+* Focus behavior
+* Refresh page
+* Back button
+* Browser history
+
+---
+
+## Security
+
+* HTTPS
+* Password not visible
+* Cookies secure
+* Session ID changes
+* Logout clears session
+* Unauthorized URL access
+* Direct dashboard URL
+* Cache validation
+* Browser back after logout
+* Multiple sessions
+
+---
+
+## Forgot Password
+
+* Valid username
+* Invalid username
+* Empty username
+* Cancel reset
+* Success message
+* Validation message
+
+---
+
+## Dashboard
+
+* Dashboard loads
+* User name displayed
+* Profile menu
+* Sidebar
+* Search
+* Quick Launch
+* Widgets
+* Logout
+
+---
+
+# Complete OrangeHRM Module Coverage
+
+After Login, automate every available module:
+
+1. Login
+2. Dashboard
+3. Admin
+4. PIM
+5. Leave
+6. Time
+7. Recruitment
+8. My Info
+9. Performance
+10. Dashboard Widgets
+11. Directory
+12. Maintenance
+13. Buzz
+
+For each module, cover:
+
+* Add
+* Edit
+* Delete
+* Search
+* Filter
+* Reset
+* Cancel
+* Validation
+* Pagination
+* Sorting
+* Export (if available)
+* Import (if available)
+* Permissions
+* UI validation
+* Error handling
+* Boundary values
+* Negative scenarios
+* End-to-end workflows
+
+## Recommended implementation order
+
+1. Project setup
+2. Configuration
+3. Framework core (BasePage, BaseTest)
+4. Utilities and helpers
+5. Login Page Object
+6. Login test suite
+7. Dashboard
+8. Admin module
+9. PIM module
+10. Remaining modules (Leave, Time, Recruitment, My Info, Performance, Directory, Maintenance, Buzz)
+11. API layer
+12. Reporting and logging
+13. CI/CD integration
+14. Docker support
+15. Framework documentation (README)
+
+This sequence mirrors how many professional QA teams build a scalable Playwright framework and will take you from an empty folder to a production-style automation project.
+
+[1]: https://opensource-demo.orangehrmlive.com/web/index.php/auth/login?utm_source=chatgpt.com "OrangeHRM"
