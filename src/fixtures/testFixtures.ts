@@ -1,11 +1,10 @@
 import { test as base, expect } from '@playwright/test';
-
 import { LoginPage } from '@pages/LoginPage';
-//import { DashboardPage } from '@pages/DashboardPage';
+import { DashboardPage } from '@pages/DashboardPage';
 
 type PageFixtures = {
     loginPage: LoginPage;
-    //dashboardPage: DashboardPage;
+    dashboardPage: DashboardPage;
 };
 
 export const test = base.extend<PageFixtures>({
@@ -13,9 +12,9 @@ export const test = base.extend<PageFixtures>({
         await use(new LoginPage(page));
     },
 
-    //   dashboardPage: async ({ page }, use) => {
-    //     await use(new DashboardPage(page));
-    //   },
+      dashboardPage: async ({ page }, use) => {
+        await use(new DashboardPage(page));
+      },
 });
 
 export { expect };

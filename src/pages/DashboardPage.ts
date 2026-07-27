@@ -1,7 +1,7 @@
 import { Locator, Page } from '@playwright/test';
 
 import { BasePage } from '@core/BasePage';
-import { SidebarComponent } from '@components/SidebarComponent';
+import { SidebarComponent } from "@components/SidebarComponent";
 import { TopBarComponent } from '@components/TopBarComponent';
 
 export class DashboardPage extends BasePage {

@@ -1,4 +1,5 @@
-import { test } from '@fixtures/testFixtures';
+import { expect, test } from '@fixtures/testFixtures';
+//import loginData from '@data/loginData.json';
 
 test.describe('Login - Smoke TEST', () => {
 
@@ -7,11 +8,16 @@ test.describe('Login - Smoke TEST', () => {
     await loginPage.verifyLoginPageLoaded();
   });
 
-  test('Click Login button', async ({ loginPage }) => {
-    await loginPage.clickLogin();
+  test('TC_001 - Admin should login successfully', async ({ loginPage }) => {
+    //const admin = loginData.validUsers[0];
+
+    const dashboard = await loginPage.loginAsAdmin();
+
+    await dashboard.verifyDashboardLoaded();
+    expect(await dashboard.isDashboardDisplayed()).toBeTruthy();
   });
 
 
-  
+
 
 });

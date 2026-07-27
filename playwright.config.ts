@@ -1,130 +1,220 @@
-import { defineConfig, devices } from '@playwright/test';
-import dotenv from 'dotenv';
-import path from 'path';
+import { defineConfig, devices } from "@playwright/test";
+import dotenv from "dotenv";
+import path from "path";
 
 // Load environment variables
 dotenv.config({
-  path: path.resolve(__dirname, '.env'),
+  path: path.resolve(process.cwd(), ".env"),
 });
 
-const isCI = !!process.env.CI;
+const isCI = Boolean(process.env.CI);
 
 export default defineConfig({
-  //--------------------------------------
+  //---------------------------------------------------------
   // Test Directory
-  //--------------------------------------
-  testDir: './tests',
+  //---------------------------------------------------------
+  testDir: "./tests",
 
-  //--------------------------------------
-  // Global Timeout
-  //--------------------------------------
+  testMatch: ["**/*.spec.ts"],
+
+  testIgnore: [
+    "**/node_modules/**",
+    "**/dist/**",
+    "**/test-results/**",
+    "**/playwright-report/**"
+  ],
+
+  //---------------------------------------------------------
+  // Timeouts
+  //---------------------------------------------------------
   timeout: 60 * 1000,
 
-  //--------------------------------------
-  // Assertion Timeout
-  //--------------------------------------
+  globalTimeout: 60 * 60 * 1000,
+
   expect: {
     timeout: 10 * 1000,
   },
 
-  //--------------------------------------
-  // Run Tests
-  //--------------------------------------
+  //---------------------------------------------------------
+  // Execution
+  //---------------------------------------------------------
   fullyParallel: true,
 
-  //--------------------------------------
-  // Prevent accidental .only in CI
-  //--------------------------------------
   forbidOnly: isCI,
 
-  //--------------------------------------
-  // Retry Failed Tests
-  //--------------------------------------
   retries: isCI ? 2 : 0,
 
-  //--------------------------------------
-  // Workers
-  //--------------------------------------
   workers: isCI ? 2 : undefined,
 
-  //--------------------------------------
-  // Reporters
-  //--------------------------------------
+  //---------------------------------------------------------
+  // Reporter
+  //---------------------------------------------------------
   reporter: [
-    ['html', { open: 'never', outputFolder: 'playwright-report' }],
-    ['list'],
-    ['json', { outputFile: 'test-results/results.json' }],
-    ['junit', { outputFile: 'test-results/results.xml' }],
-    ['allure-playwright']
+    [
+      "html",
+      {
+        outputFolder: "playwright-report",
+        open: "never",
+      },
+    ],
+
+    ["list"],
+
+    [
+      "json",
+      {
+        outputFile: "test-results/results.json",
+      },
+    ],
+
+    [
+      "junit",
+      {
+        outputFile: "test-results/results.xml",
+      },
+    ],
+
+    ["allure-playwright"],
   ],
 
-  //--------------------------------------
+  //---------------------------------------------------------
+  // Output
+  //---------------------------------------------------------
+  outputDir: "test-results",
+
+  preserveOutput: "failures-only",
+
+  snapshotPathTemplate:
+    "{testDir}/{testFilePath}-snapshots/{arg}{ext}",
+
+  //---------------------------------------------------------
   // Shared Settings
-  //--------------------------------------
+  //---------------------------------------------------------
   use: {
-    baseURL: process.env.BASE_URL,
+    //-----------------------------------------------------
+    // Application
+    //-----------------------------------------------------
+    baseURL:
+      process.env.BASE_URL ??
+      "https://opensource-demo.orangehrmlive.com",
 
-    headless: process.env.HEADLESS === 'true',
+    //-----------------------------------------------------
+    // Browser
+    //-----------------------------------------------------
+    browserName: "chromium",
 
+    headless: process.env.HEADLESS === "true",
+
+    channel: process.env.BROWSER_CHANNEL || undefined,
+
+    //-----------------------------------------------------
+    // Viewport
+    //-----------------------------------------------------
     viewport: {
       width: 1920,
       height: 1080,
     },
 
+    //-----------------------------------------------------
+    // Timeouts
+    //-----------------------------------------------------
     actionTimeout: 15 * 1000,
 
     navigationTimeout: 30 * 1000,
 
+    //-----------------------------------------------------
+    // Browser Context
+    //-----------------------------------------------------
     ignoreHTTPSErrors: true,
 
     acceptDownloads: true,
 
-    screenshot: 'only-on-failure',
+    bypassCSP: false,
 
-    video: 'retain-on-failure',
+    //-----------------------------------------------------
+    // Artifacts
+    //-----------------------------------------------------
+    screenshot: "only-on-failure",
 
-    trace: 'retain-on-failure',
+    video: "retain-on-failure",
 
+    trace: "retain-on-failure",
+
+    //-----------------------------------------------------
+    // Locale
+    //-----------------------------------------------------
+    locale: "en-US",
+
+    timezoneId: "UTC",
+
+    //-----------------------------------------------------
+    // Launch Options
+    //-----------------------------------------------------
     launchOptions: {
-      slowMo: Number(process.env.SLOW_MO) || 0,
+      slowMo: Number(process.env.SLOW_MO ?? 0),
+      args: [
+        "--start-maximized",
+      ],
     },
   },
 
-  //--------------------------------------
-  // Output Folder
-  //--------------------------------------
-  outputDir: 'test-results/',
-
-  //--------------------------------------
+  //---------------------------------------------------------
   // Projects
-  //--------------------------------------
+  //---------------------------------------------------------
   projects: [
     {
-      name: 'chromium',
+      name: "Chromium",
+
       use: {
-        ...devices['Desktop Chrome'],
+        ...devices["Desktop Chrome"],
       },
     },
 
     {
-      name: 'firefox',
+      name: "Firefox",
+
       use: {
-        ...devices['Desktop Firefox'],
+        ...devices["Desktop Firefox"],
       },
     },
 
     {
-      name: 'webkit',
+      name: "WebKit",
+
       use: {
-        ...devices['Desktop Safari'],
+        ...devices["Desktop Safari"],
       },
     },
 
     {
-      name: 'Microsoft Edge',
+      name: "Microsoft Edge",
+
       use: {
-        channel: 'msedge',
+        ...devices["Desktop Edge"],
+        channel: "msedge",
       },
     },
   ],
+
+  //---------------------------------------------------------
+  // Web Server
+  //---------------------------------------------------------
+  /*
+  webServer: {
+    command: "npm run start",
+    url: "http://localhost:3000",
+    reuseExistingServer: !isCI,
+    timeout: 120 * 1000,
+  },
+  */
+
+  //---------------------------------------------------------
+  // Metadata
+  //---------------------------------------------------------
+  metadata: {
+    Project: "Playwright Automation Framework",
+    Environment: process.env.ENV ?? "QA",
+    Browser: process.env.BROWSER ?? "Chromium",
+    ExecutedBy: process.env.USER ?? "Local",
+  },
 });
