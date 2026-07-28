@@ -1,22 +1,18 @@
 import { Locator, Page } from '@playwright/test';
 
 import { BasePage } from '@core/BasePage';
-import { SidebarComponent } from "@components/SidebarComponent";
+import { SidebarComponent } from '@components/SidebarComponent';
 import { TopBarComponent } from '@components/TopBarComponent';
 
 export class DashboardPage extends BasePage {
-  // ============================================
-  // Components
-  // ============================================
 
+  // Components
   readonly sidebar: SidebarComponent;
 
   readonly topBar: TopBarComponent;
 
-  // ============================================
-  // Locators
-  // ============================================
 
+  // Locators
   readonly dashboardHeader: Locator;
 
   readonly dashboardTitle: Locator;
@@ -49,10 +45,8 @@ export class DashboardPage extends BasePage {
     );
   }
 
-  // ============================================
-  // Page Verification
-  // ============================================
 
+  // Page Verification
   async verifyDashboardLoaded(): Promise<void> {
     await this.assertions.expectVisible(
       this.dashboardTitle,
@@ -65,10 +59,7 @@ export class DashboardPage extends BasePage {
     await this.assertions.expectUrl(/dashboard/);
   }
 
-  // ============================================
   // Search
-  // ============================================
-
   async searchMenu(menu: string): Promise<void> {
     await this.fill(this.searchBox, menu);
   }
@@ -77,10 +68,7 @@ export class DashboardPage extends BasePage {
     await this.clearAndFill(this.searchBox, '');
   }
 
-  // ============================================
   // Dashboard Information
-  // ============================================
-
   async getDashboardTitle(): Promise<string> {
     return this.getText(this.dashboardTitle);
   }
@@ -89,10 +77,7 @@ export class DashboardPage extends BasePage {
     return this.getCount(this.dashboardCards);
   }
 
-  // ============================================
   // State
-  // ============================================
-
   async isDashboardDisplayed(): Promise<boolean> {
     return this.isVisible(this.dashboardTitle);
   }

@@ -11,7 +11,7 @@ export class LoginPage extends BasePage {
   readonly usernameInput: Locator;
   readonly passwordInput: Locator;
   readonly loginButton: Locator;
-  readonly forgotPasswordLink: Locator;
+  //readonly forgotPasswordLink: Locator;
   readonly orangeHRMLogo: Locator;
   readonly errorMessage: Locator;
   readonly requiredMessage: Locator;
@@ -22,7 +22,7 @@ export class LoginPage extends BasePage {
     this.usernameInput = page.getByPlaceholder('Username');
     this.passwordInput = page.getByPlaceholder('Password');
     this.loginButton = page.getByRole('button', { name: 'Login' });
-    this.forgotPasswordLink = page.getByRole('link', { name: 'Forgot your password?' });
+    //this.forgotPasswordLink = page.getByRole('link', { name: 'Forgot your password?' });
     this.orangeHRMLogo = page.locator('.orangehrm-login-branding');
     this.errorMessage = page.locator('.oxd-alert-content-text');
     this.requiredMessage = page.locator(
@@ -51,9 +51,9 @@ export class LoginPage extends BasePage {
     await this.click(this.loginButton);
   }
 
-  async clickForgotPassword(): Promise<void> {
-    await this.click(this.forgotPasswordLink);
-  }
+  // async clickForgotPassword(): Promise<void> {
+  //   await this.click(this.forgotPasswordLink);
+  // }
 
   async login(username: string, password: string): Promise<DashboardPage> {
     await this.enterUsername(username);
@@ -98,9 +98,9 @@ async loginAsAdmin(): Promise<DashboardPage> {
     return this.isVisible(this.passwordInput);
   }
 
-  async isForgotPasswordVisible(): Promise<boolean> {
-    return this.isVisible(this.forgotPasswordLink);
-  }
+  // async isForgotPasswordVisible(): Promise<boolean> {
+  //   return this.isVisible(this.forgotPasswordLink);
+  // }
 
   async isLogoVisible(): Promise<boolean> {
     return this.isVisible(this.orangeHRMLogo);

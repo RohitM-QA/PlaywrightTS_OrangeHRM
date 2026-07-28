@@ -7,10 +7,7 @@ export abstract class BasePage {
     this.page = page;
   }
 
-  // ==========================================================
   // Navigation
-  // ==========================================================
-
   async navigate(url: string): Promise<void> {
     await this.page.goto(url, {
       waitUntil: 'domcontentloaded',
@@ -37,10 +34,8 @@ export abstract class BasePage {
     return this.page.title();
   }
 
-  // ==========================================================
-  // Locator Helpers
-  // ==========================================================
 
+  // Locator Helpers
   locator(selector: string): Locator {
     return this.page.locator(selector);
   }
@@ -61,10 +56,7 @@ export abstract class BasePage {
     return this.page.getByPlaceholder(text);
   }
 
-  // ==========================================================
   // Click Actions
-  // ==========================================================
-
   async click(locator: Locator): Promise<void> {
     await locator.click();
   }
@@ -83,10 +75,8 @@ export abstract class BasePage {
     await locator.hover();
   }
 
-  // ==========================================================
-  // Input Actions
-  // ==========================================================
 
+  // Input Actions
   async fill(locator: Locator, value: string): Promise<void> {
     await locator.fill(value);
   }
@@ -104,10 +94,7 @@ export abstract class BasePage {
     await locator.press(key);
   }
 
-  // ==========================================================
   // Checkbox
-  // ==========================================================
-
   async check(locator: Locator): Promise<void> {
     await locator.check();
   }
@@ -116,10 +103,7 @@ export abstract class BasePage {
     await locator.uncheck();
   }
 
-  // ==========================================================
   // Dropdown
-  // ==========================================================
-
   async selectByText(locator: Locator, text: string): Promise<void> {
     await locator.selectOption({
       label: text,
@@ -136,10 +120,7 @@ export abstract class BasePage {
     });
   }
 
-  // ==========================================================
   // Waits
-  // ==========================================================
-
   async waitForVisible(locator: Locator): Promise<void> {
     await locator.waitFor({
       state: 'visible',
@@ -160,10 +141,7 @@ export abstract class BasePage {
     await this.page.waitForURL(url);
   }
 
-  // ==========================================================
   // Read Values
-  // ==========================================================
-
   async getText(locator: Locator): Promise<string> {
     return (await locator.textContent())?.trim() ?? '';
   }
@@ -183,10 +161,7 @@ export abstract class BasePage {
     return locator.count();
   }
 
-  // ==========================================================
   // State Checks
-  // ==========================================================
-
   async isVisible(locator: Locator): Promise<boolean> {
     return locator.isVisible();
   }
@@ -207,10 +182,7 @@ export abstract class BasePage {
     return locator.isChecked();
   }
 
-  // ==========================================================
   // Assertions
-  // ==========================================================
-
   async expectVisible(locator: Locator): Promise<void> {
     await expect(locator).toBeVisible();
   }
@@ -235,9 +207,7 @@ export abstract class BasePage {
     await expect(this.page).toHaveTitle(title);
   }
 
-  // ==========================================================
   // Mouse Actions
-  // ==========================================================
 
   async dragAndDrop(source: Locator, target: Locator): Promise<void> {
     await source.dragTo(target);
@@ -247,18 +217,14 @@ export abstract class BasePage {
     await locator.scrollIntoViewIfNeeded();
   }
 
-  // ==========================================================
-  // Keyboard
-  // ==========================================================
 
+  // Keyboard
   async keyboardPress(key: string): Promise<void> {
     await this.page.keyboard.press(key);
   }
 
-  // ==========================================================
-  // Screenshot
-  // ==========================================================
 
+  // Screenshot
   async takeScreenshot(path: string): Promise<void> {
     await this.page.screenshot({
       path,
@@ -266,10 +232,8 @@ export abstract class BasePage {
     });
   }
 
-  // ==========================================================
-  // Browser
-  // ==========================================================
 
+  // Browser
   async close(): Promise<void> {
     await this.page.close();
   }
