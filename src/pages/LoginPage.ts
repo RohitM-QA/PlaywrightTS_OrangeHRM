@@ -19,9 +19,9 @@ export class LoginPage extends BasePage {
   constructor(page: Page) {
     super(page);
 
-    this.usernameInput = page.getByPlaceholder('Username');
-    this.passwordInput = page.getByPlaceholder('Password');
-    this.loginButton = page.getByRole('button', { name: 'Login' });
+    this.usernameInput = this.page.locator('input[name="username"]')
+    this.passwordInput = this.page.locator('input[name="password"]');
+    this.loginButton = this.page.getByRole('button', { name: 'Login' });
     //this.forgotPasswordLink = page.getByRole('link', { name: 'Forgot your password?' });
     this.orangeHRMLogo = page.locator('.orangehrm-login-branding');
     this.errorMessage = page.locator('.oxd-alert-content-text');
@@ -38,7 +38,7 @@ export class LoginPage extends BasePage {
     await this.waitForVisible(this.usernameInput);
   }
 
-  // Actions:
+  // Login Actions:
   async enterUsername(username: string): Promise<void> {
     await this.fill(this.usernameInput, username);
   }
@@ -65,19 +65,111 @@ export class LoginPage extends BasePage {
 
   //Login By Role
   async loginAs(role: UserRole): Promise<DashboardPage> {
-  const credential = CredentialManager.get(role);
+    const credential = CredentialManager.get(role);
 
-  return await this.login(
-    credential.username,
-    credential.password,
-  );
-}
+    return await this.login(
+      credential.username,
+      credential.password,
+    );
+  }
 
-async loginAsAdmin(): Promise<DashboardPage> {
-  return await this.loginAs(UserRole.ADMIN);
-}
+  async loginAsAdmin(): Promise<DashboardPage> {
+    return await this.loginAs(UserRole.ADMIN);
+  }
+
+  // Username Helpers
+  async clearUsername(): Promise<void> {
+    await this.usernameInput.clear();
+  }
+
+  async getUsername(): Promise<string> {
+    return await this.usernameInput.inputValue();
+  }
+
+  async getUsernamePlaceholder(): Promise<string | null> {
+    return await this.usernameInput.getAttribute('placeholder');
+  }
+
+
+  // Password Helpers
+  async clearPassword(): Promise<void> {
+    await this.passwordInput.clear();
+  }
+
+  async getPassword(): Promise<string> {
+    return await this.passwordInput.inputValue();
+  }
+
+  async getPasswordPlaceholder(): Promise<string | null> {
+    return await this.passwordInput.getAttribute('placeholder');
+  }
+
+  async isPasswordMasked(): Promise<boolean> {
+    return (
+      (await this.passwordInput.getAttribute('type')) === 'password'
+    );
+  }
+
+  // Keyboard Helpers
+  async pressTab(): Promise<void> {
+    await this.page.keyboard.press('Tab');
+  }
+
+  async pressShiftTab(): Promise<void> {
+    await this.page.keyboard.press('Shift+Tab');
+  }
+
+  async pressEnter(): Promise<void> {
+    await this.page.keyboard.press('Enter');
+  }
+
+  // Browser Helpers
+  async refreshPage(): Promise<void> {
+    await this.page.reload();
+  }
+
+  async goBack(): Promise<void> {
+    await this.page.goBack();
+  }
+
+  async getCurrentUrl(): Promise<string> {
+    return this.page.url();
+  }
+
+  async getPageTitle(): Promise<string> {
+    return await this.page.title();
+  }
+
+  // Field State Helpers
+  async isUsernameEmpty(): Promise<boolean> {
+    return (await this.getUsername()) === '';
+  }
+
+  async isPasswordEmpty(): Promise<boolean> {
+    return (await this.getPassword()) === '';
+  }
+
+  async isLoginButtonEnabled(): Promise<boolean> {
+    return await this.loginButton.isEnabled();
+  }
+
+  async isLoginButtonDisabled(): Promise<boolean> {
+    return !(await this.loginButton.isEnabled());
+  }
+
+
+  // Focus Helpers
+  async focusUsername(): Promise<void> {
+    await this.usernameInput.focus();
+  }
+
+  async focusPassword(): Promise<void> {
+    await this.passwordInput.focus();
+  }
+
 
   //Validation
+
   async getErrorMessage(): Promise<string> {
     return this.getText(this.errorMessage);
   }

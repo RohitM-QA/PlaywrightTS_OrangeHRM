@@ -48,15 +48,15 @@ export class DashboardPage extends BasePage {
 
   // Page Verification
   async verifyDashboardLoaded(): Promise<void> {
-    await this.assertions.expectVisible(
+    await this.expectVisible(
       this.dashboardTitle,
     );
 
-    await this.assertions.expectVisible(
+    await this.expectVisible(
       this.dashboardHeader,
     );
 
-    await this.assertions.expectUrl(/dashboard/);
+    await this.expectUrl(/dashboard/);
   }
 
   // Search
@@ -78,9 +78,18 @@ export class DashboardPage extends BasePage {
   }
 
   // State
+  // async isDashboardDisplayed(): Promise<boolean> {
+  //   return this.isVisible(this.dashboardTitle);
+  // }
+
   async isDashboardDisplayed(): Promise<boolean> {
-    return this.isVisible(this.dashboardTitle);
-  }
+    await this.dashboardTitle.waitFor({
+        state: 'visible',
+        timeout: 10000,
+    });
+
+    return true;
+}
 
   async isSearchVisible(): Promise<boolean> {
     return this.isVisible(this.searchBox);

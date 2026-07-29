@@ -7,12 +7,19 @@ export abstract class BasePage {
     this.page = page;
   }
 
-  // Navigation
+  //Navigation
   async navigate(url: string): Promise<void> {
     await this.page.goto(url, {
       waitUntil: 'domcontentloaded',
     });
   }
+
+  // async navigate(url: string): Promise<void> {
+  //   await this.page.goto(url, {
+  //     waitUntil: 'load',
+  //     timeout: 60000,
+  //   });
+  // }
 
   async reload(): Promise<void> {
     await this.page.reload();
