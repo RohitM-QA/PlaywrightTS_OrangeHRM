@@ -11,7 +11,7 @@ export class LoginPage extends BasePage {
   readonly usernameInput: Locator;
   readonly passwordInput: Locator;
   readonly loginButton: Locator;
-  //readonly forgotPasswordLink: Locator;
+  readonly forgotPasswordLink: Locator;
   readonly orangeHRMLogo: Locator;
   readonly errorMessage: Locator;
   readonly requiredMessage: Locator;
@@ -22,7 +22,7 @@ export class LoginPage extends BasePage {
     this.usernameInput = this.page.locator('input[name="username"]')
     this.passwordInput = this.page.locator('input[name="password"]');
     this.loginButton = this.page.getByRole('button', { name: 'Login' });
-    //this.forgotPasswordLink = page.getByRole('link', { name: 'Forgot your password?' });
+    this.forgotPasswordLink = page.getByRole('link', { name: 'Forgot your password?' });
     this.orangeHRMLogo = page.locator('.orangehrm-login-branding');
     this.errorMessage = page.locator('.oxd-alert-content-text');
     this.requiredMessage = page.locator(
@@ -51,9 +51,9 @@ export class LoginPage extends BasePage {
     await this.click(this.loginButton);
   }
 
-  // async clickForgotPassword(): Promise<void> {
-  //   await this.click(this.forgotPasswordLink);
-  // }
+  async clickForgotPassword(): Promise<void> {
+    await this.click(this.forgotPasswordLink);
+  }
 
   async login(username: string, password: string): Promise<DashboardPage> {
     await this.enterUsername(username);
@@ -90,6 +90,13 @@ export class LoginPage extends BasePage {
     return await this.usernameInput.getAttribute('placeholder');
   }
 
+  async pasteUsername(username: string): Promise<void> {
+    await this.usernameInput.fill(username);
+  }
+
+  async verifyUsernameValue(expected: string): Promise<void> {
+    await this.expectValue(this.usernameInput, expected);
+  }
 
   // Password Helpers
   async clearPassword(): Promise<void> {
@@ -108,6 +115,14 @@ export class LoginPage extends BasePage {
     return (
       (await this.passwordInput.getAttribute('type')) === 'password'
     );
+  }
+
+  async pastePassword(password: string): Promise<void> {
+    await this.passwordInput.fill(password);
+  }
+
+  async verifyPasswordValue(expected: string): Promise<void> {
+    await this.expectValue(this.passwordInput, expected);
   }
 
   // Keyboard Helpers
@@ -190,21 +205,41 @@ export class LoginPage extends BasePage {
     return this.isVisible(this.passwordInput);
   }
 
-  // async isForgotPasswordVisible(): Promise<boolean> {
-  //   return this.isVisible(this.forgotPasswordLink);
-  // }
+  async isForgotPasswordVisible(): Promise<boolean> {
+    return this.isVisible(this.forgotPasswordLink);
+  }
 
   async isLogoVisible(): Promise<boolean> {
     return this.isVisible(this.orangeHRMLogo);
   }
 
   // Page Verification
-  async verifyLoginPageLoaded(): Promise<void> {
-    await this.expectVisible(this.usernameInput);
-    await this.expectVisible(this.passwordInput);
-    await this.expectVisible(this.loginButton);
+  // async verifyLoginPageLoaded(): Promise<void> {
+  //   await this.expectVisible(this.usernameInput);
+  //   await this.expectVisible(this.passwordInput);
+  //   await this.expectVisible(this.loginButton);
 
-    await this.expectTitle(/OrangeHRM/i);
+  //   await this.expectTitle(/OrangeHRM/i);
+  // }
+
+  async verifyLogoVisible(): Promise<void> {
+    await this.expectVisible(this.orangeHRMLogo);
+  }
+
+  async verifyUsernameVisible(): Promise<void> {
+    await this.expectVisible(this.usernameInput);
+  }
+
+  async verifyPasswordVisible(): Promise<void> {
+    await this.expectVisible(this.passwordInput);
+  }
+
+  async verifyLoginButtonVisible(): Promise<void> {
+    await this.expectVisible(this.loginButton);
+  }
+
+  async verifyForgotPasswordVisible(): Promise<void> {
+    await this.expectVisible(this.forgotPasswordLink);
   }
 
   // Convenience Methods

@@ -1,0 +1,31 @@
+src
+│
+├── core
+│      BaseActions.ts
+│      BaseAssertions.ts
+│      BasePage.ts
+│      BaseComponent.ts
+│
+├── components
+│      SidebarComponent.ts
+│      TopBarComponent.ts
+│      TableComponent.ts
+│      ModalComponent.ts
+│      FormComponent.ts
+│      SearchComponent.ts
+│
+├── pages
+│      LoginPage.ts
+│      DashboardPage.ts
+│      AdminPage.ts
+│      PIMPage.ts
+│      LeavePage.ts
+│      TimePage.ts
+│      RecruitmentPage.ts
+│      PerformancePage.ts
+│
+├── fixtures
+│
+├── utils
+│
+└── tests
