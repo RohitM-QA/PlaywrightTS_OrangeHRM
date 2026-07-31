@@ -1,75 +1,126 @@
-import { expect, Locator, Page } from "@playwright/test";
+import { Locator, Page } from '@playwright/test';
+import { BaseComponent } from '@core/BaseComponent';
 
-export class TopBarComponent {
-  readonly page: Page;
+export class TopBarComponent extends BaseComponent {
 
+  // Root
   readonly topBar: Locator;
+
+  // Header
   readonly pageTitle: Locator;
-  readonly userDropdown: Locator;
-  readonly profileImage: Locator;
+  readonly breadcrumb: Locator;
 
-  readonly aboutOption: Locator;
-  readonly supportOption: Locator;
-  readonly changePasswordOption: Locator;
-  readonly logoutOption: Locator;
+  // Icons
+  readonly searchButton: Locator;
+  readonly helpButton: Locator;
+  readonly notificationButton: Locator;
+  readonly userDropdownButton: Locator;
 
+  // User Menu
+  readonly aboutMenu: Locator;
+  readonly supportMenu: Locator;
+  readonly changePasswordMenu: Locator;
+  readonly logoutMenu: Locator;
   constructor(page: Page) {
-    this.page = page;
 
-    this.topBar = page.locator(".oxd-topbar");
+    super(
+      page,
+      page.locator('.oxd-topbar')
+    );
 
-    this.pageTitle = page.locator(".oxd-topbar-header-breadcrumb h6");
-
-    this.userDropdown = page.locator(".oxd-userdropdown-tab");
-
-    this.profileImage = page.locator(".oxd-userdropdown-img");
-
-    this.aboutOption = page.getByRole("menuitem", { name: "About" });
-
-    this.supportOption = page.getByRole("menuitem", { name: "Support" });
-
-    this.changePasswordOption = page.getByRole("menuitem", {
-      name: "Change Password",
+    this.topBar = this.root;
+    this.pageTitle = page.locator('.oxd-topbar-header-title');
+    this.breadcrumb = page.locator('.oxd-topbar-body-nav');
+    this.searchButton = page.locator('.oxd-topbar-header input');
+    this.helpButton = page.locator('button[title="Help"]');
+    this.notificationButton = page.locator('.oxd-userdropdown');
+    this.userDropdownButton = page.locator('.oxd-userdropdown-tab');
+    this.aboutMenu = page.getByRole('menuitem', {
+      name: 'About'
     });
 
-    this.logoutOption = page.getByRole("menuitem", {
-      name: "Logout",
+    this.supportMenu = page.getByRole('menuitem', {
+      name: 'Support'
     });
+
+    this.changePasswordMenu = page.getByRole('menuitem', {
+      name: 'Change Password'
+    });
+
+    this.logoutMenu = page.getByRole('menuitem', {
+      name: 'Logout'
+    });
+
   }
 
-  async verifyTopBarVisible(): Promise<void> {
-    await expect(this.topBar).toBeVisible();
+
+  // Verification
+  async verifyLoaded(): Promise<void> {
+    await this.waitUntilVisible();
+    await this.expectVisible(
+      this.userDropdownButton
+    );
+
   }
 
+  async isVisible(): Promise<boolean> {
+    return super.isVisible();
+  }
+
+  // Information
   async getPageTitle(): Promise<string> {
-    return (await this.pageTitle.textContent()) ?? "";
+    return this.getText(this.pageTitle);
   }
 
+
+  // User Menu
   async openUserMenu(): Promise<void> {
-    await this.userDropdown.click();
+
+    await this.click(
+      this.userDropdownButton
+    );
+
   }
 
-  async clickAbout(): Promise<void> {
+  async openAbout(): Promise<void> {
+
     await this.openUserMenu();
-    await this.aboutOption.click();
+    await this.click(
+      this.aboutMenu
+    );
+
   }
 
-  async clickSupport(): Promise<void> {
+  async openSupport(): Promise<void> {
+
     await this.openUserMenu();
-    await this.supportOption.click();
+    await this.click(
+      this.supportMenu
+    );
+
   }
 
-  async clickChangePassword(): Promise<void> {
+  async changePassword(): Promise<void> {
+
     await this.openUserMenu();
-    await this.changePasswordOption.click();
+    await this.click(
+      this.changePasswordMenu
+    );
+
   }
 
   async logout(): Promise<void> {
+
     await this.openUserMenu();
-    await this.logoutOption.click();
+    await this.click(
+      this.logoutMenu
+    );
+
   }
 
-  async verifyLoggedIn(): Promise<void> {
-    await expect(this.profileImage).toBeVisible();
+  // State
+  async isUserMenuOpen(): Promise<boolean> {
+    return this.logoutMenu.isVisible();
   }
+
 }
