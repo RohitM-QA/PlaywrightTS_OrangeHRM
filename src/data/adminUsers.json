@@ -1,0 +1,18 @@
+{
+  "adminUser": {
+    "userRole": "Admin",
+    "employeeName": "Paul Collings",
+    "username": "automation.admin",
+    "status": "Enabled",
+    "password": "Password@123",
+    "confirmPassword": "Password@123"
+  },
+  "essUser": {
+    "userRole": "ESS",
+    "employeeName": "Linda Anderson",
+    "username": "automation.ess",
+    "status": "Enabled",
+    "password": "Password@123",
+    "confirmPassword": "Password@123"
+  }
+}

@@ -1,7 +1,7 @@
 import { Locator, Page } from "@playwright/test";
 import { BaseComponent } from "@core/BaseComponent";
 
-export class UserDropdownCompoment extends BaseComponent {
+export class UserDropdownComponent extends BaseComponent {
 
     //User Profile
     readonly dropdownButton: Locator;
