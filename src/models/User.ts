@@ -9,12 +9,9 @@ export enum UserStatus {
 }
 
 export interface User {
-
-    userRole: UserRole;
+    userRole: string;
     employeeName: string;
     username: string;
-    status: UserStatus;
+    status: string;
     password: string;
-    confirmPassword?: string;
-
 }

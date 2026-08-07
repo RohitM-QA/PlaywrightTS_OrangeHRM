@@ -43,7 +43,8 @@
       "@types/*": ["src/types/*"],
       "@api/*": ["src/api/*"],
       "@components/*": ["src/components/*"],
-      "@logger/*": ["src/logger/*"]
+      "@logger/*": ["src/logger/*"],
+      "@models/*": ["src/models/*"]
     },
 
     /* Type Definitions */
